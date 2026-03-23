@@ -3,6 +3,8 @@ FROM eclipse-temurin:22-jdk
 ARG SERVER_VERSION=1.21.11-61.1.0
 ENV SERVER_VERSION=$SERVER_VERSION
 
+RUN groupadd -r mc && useradd -r -g mc -d /minecraft mc
+
 WORKDIR /minecraft
 
 RUN apt-get update && apt-get install -y curl \
@@ -11,6 +13,8 @@ RUN apt-get update && apt-get install -y curl \
 RUN curl -o installer.jar \
     https://maven.minecraftforge.net/net/minecraftforge/forge/${SERVER_VERSION}/forge-${SERVER_VERSION}-installer.jar
 
+USER mc
+    
 RUN java -jar installer.jar --installServer \
     && rm installer.jar \
     && echo "eula=true" > eula.txt
