@@ -1,0 +1,11 @@
+services:
+  server:
+    container_name: mc-server
+    image: minecraft:local
+    build:
+      dockerfile: Dockerfile
+      context: .
+      args:
+        - SERVER_VERSION=${SERVER_VERSION}
+    ports:
+      - 25565:25565
