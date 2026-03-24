@@ -3,7 +3,7 @@ services:
     container_name: mc-server
     image: minecraft:local
     build:
-      dockerfile: Dockerfile
+      dockerfile: dockerfiles/Dockerfile.${SERVER_TYPE}
       context: .
       args:
         - SERVER_VERSION=${SERVER_VERSION}
