@@ -20,7 +20,7 @@ USER mc
     
 RUN java -jar installer.jar --installServer \
     && rm installer.jar \
-    # && echo "eula=true" > eula.txt
+    && echo "eula=true" > eula.txt
 
 COPY server.properties .
 
