@@ -3,7 +3,10 @@ FROM eclipse-temurin:22-jdk
 ARG SERVER_VERSION=1.21.11-61.1.0
 ENV SERVER_VERSION=$SERVER_VERSION
 
-RUN groupadd -r mc && useradd -r -g mc -d /minecraft mc
+RUN groupadd -r mc \
+    && useradd -r -g mc -d /minecraft mc \
+    && mkdir -p /minecraft \
+    && chown -R mc:mc /minecraft
 
 WORKDIR /minecraft
 
@@ -18,5 +21,7 @@ USER mc
 RUN java -jar installer.jar --installServer \
     && rm installer.jar \
     && echo "eula=true" > eula.txt
+
+COPY server.properties .
 
 CMD ["sh", "-c", "java -jar forge-${SERVER_VERSION}-shim.jar nogui"]

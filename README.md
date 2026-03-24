@@ -15,3 +15,7 @@ docker compose up
 ```
 
 When run locally, you can join the server over localhost via port 25565 (i.e. enter `localhost:25565` as the server IP addr in Minecraft).
+
+## Config
+
+server.properties enforces whitelisting.
