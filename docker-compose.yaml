@@ -11,6 +11,7 @@ services:
       - 25565:25565
     volumes:
       - minecraft-world:/minecraft/world
+    stop_grace_period: 5m
 
 volumes:
   minecraft-world:

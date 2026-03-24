@@ -22,8 +22,8 @@ RUN java -jar installer.jar --installServer \
     && rm installer.jar \
     && echo "eula=true" > eula.txt
 
-COPY --chown=mc:mc server.properties .
+COPY --chown=mc:mc server.properties entrypoint.sh ./
 
 RUN mkdir -p /minecraft/world && chown -R mc:mc /minecraft/world
 
-CMD ["sh", "-c", "java -jar forge-${SERVER_VERSION}-shim.jar nogui"]
+CMD ["./docker-entrypoint.sh"]
