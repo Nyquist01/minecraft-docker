@@ -9,3 +9,8 @@ services:
         - SERVER_VERSION=${SERVER_VERSION}
     ports:
       - 25565:25565
+    volumes:
+      - minecraft-world:/minecraft/world
+
+volumes:
+  minecraft-world:
