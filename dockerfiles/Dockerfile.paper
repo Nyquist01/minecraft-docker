@@ -1,1 +1,29 @@
 FROM eclipse-temurin:22-jdk
+
+ARG SERVER_VERSION
+ARG SERVER_TYPE
+
+ENV SERVER_TYPE=$SERVER_TYPE
+ENV SERVER_VERSION=$SERVER_VERSION
+
+RUN groupadd -r mc \
+    && useradd -r -g mc -d /minecraft mc \
+    && mkdir -p /minecraft \
+    && chown -R mc:mc /minecraft
+
+WORKDIR /minecraft
+
+RUN apt-get update && apt-get install -y curl \
+    && rm -rf /var/lib/apt/lists/*
+
+RUN curl -o server.jar \
+    https://fill-data.papermc.io/v1/objects/39bd8c00b9e18de91dcabd3cc3dcfa5328685a53b7187a2f63280c22e2d287b9/paper-1.21.1-133.jar
+
+USER mc
+
+COPY --chown=mc:mc server.properties docker-entrypoint.sh ./
+
+RUN echo "eula=true" > eula.txt \
+    && mkdir -p /minecraft/world && chown -R mc:mc /minecraft/world
+
+CMD ["./docker-entrypoint.sh"]

@@ -7,6 +7,7 @@ services:
       context: .
       args:
         - SERVER_VERSION=${SERVER_VERSION}
+        - SERVER_TYPE=${SERVER_TYPE}
     stdin_open: true
     tty: true
     ports:
